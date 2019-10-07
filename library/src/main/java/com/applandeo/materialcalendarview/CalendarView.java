@@ -8,6 +8,7 @@ import androidx.viewpager.widget.ViewPager;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -61,8 +62,8 @@ public class CalendarView extends LinearLayout {
     private Context mContext;
     private CalendarPageAdapter mCalendarPageAdapter;
 
-    private ImageButton mForwardButton;
-    private ImageButton mPreviousButton;
+    private ImageView mForwardButton;
+    private ImageView mPreviousButton;
     private TextView mCurrentMonthLabel;
     private int mCurrentPage;
     private CalendarViewPager mViewPager;
@@ -251,10 +252,10 @@ public class CalendarView extends LinearLayout {
     }
 
     private void initUiElements() {
-        mForwardButton = (ImageButton) findViewById(R.id.forwardButton);
+        mForwardButton = (ImageView) findViewById(R.id.forwardButton);
         mForwardButton.setOnClickListener(onNextClickListener);
 
-        mPreviousButton = (ImageButton) findViewById(R.id.previousButton);
+        mPreviousButton = (ImageView) findViewById(R.id.previousButton);
         mPreviousButton.setOnClickListener(onPreviousClickListener);
 
         mCurrentMonthLabel = (TextView) findViewById(R.id.currentDateLabel);
@@ -339,7 +340,7 @@ public class CalendarView extends LinearLayout {
     }
 
     private void setHeaderName(Calendar calendar, int position) {
-        mCurrentMonthLabel.setText(DateUtils.getMonthAndYearDate(mContext, calendar));
+        mCurrentMonthLabel.setText(DateUtils.getMonthYearDate(calendar));
         callOnPageChangeListeners(position);
     }
 
@@ -380,7 +381,7 @@ public class CalendarView extends LinearLayout {
 
         setUpCalendarPosition(date);
 
-        mCurrentMonthLabel.setText(DateUtils.getMonthAndYearDate(mContext, date));
+        mCurrentMonthLabel.setText(DateUtils.getMonthYearDate(date));
         mCalendarPageAdapter.notifyDataSetChanged();
     }
 

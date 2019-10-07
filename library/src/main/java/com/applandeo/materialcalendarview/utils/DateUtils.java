@@ -5,7 +5,9 @@ import android.content.Context;
 import com.annimon.stream.Stream;
 import com.applandeo.materialcalendarview.R;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -96,6 +98,12 @@ public class DateUtils {
         return String.format("%s  %s",
                 context.getResources().getStringArray(R.array.material_calendar_months_array)[calendar.get(Calendar.MONTH)],
                 calendar.get(Calendar.YEAR));
+    }
+
+    public static String getMonthYearDate(Calendar calendar) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY年MM月");
+        Date today = calendar.getTime();
+        return dateFormat.format(today);
     }
 
     /**

@@ -31,39 +31,24 @@ public class CalendarActivity extends AppCompatActivity {
         List<EventDay> events = new ArrayList<>();
 
         Calendar calendar = Calendar.getInstance();
-        events.add(new EventDay(calendar, DrawableUtils.getCircleDrawableWithText(this, "M")));
+        events.add(new EventDay(calendar, DrawableUtils.getCircleDrawableWithText(this, "")));
 
         Calendar calendar1 = Calendar.getInstance();
         calendar1.add(Calendar.DAY_OF_MONTH, 10);
-        events.add(new EventDay(calendar1, R.drawable.sample_icon_2));
+        events.add(new EventDay(calendar1, DrawableUtils.getCircleDrawableWithText(this, "")));
 
         Calendar calendar2 = Calendar.getInstance();
-        calendar2.add(Calendar.DAY_OF_MONTH, 10);
-        events.add(new EventDay(calendar2, R.drawable.sample_icon_3, Color.parseColor("#228B22")));
+        calendar2.add(Calendar.DAY_OF_MONTH, 11);
+        events.add(new EventDay(calendar2, DrawableUtils.getCircleDrawableWithText(this, "")));
 
-        Calendar calendar3 = Calendar.getInstance();
-        calendar3.add(Calendar.DAY_OF_MONTH, 7);
-        events.add(new EventDay(calendar3, R.drawable.sample_four_icons));
 
         Calendar calendar4 = Calendar.getInstance();
-        calendar4.add(Calendar.DAY_OF_MONTH, 13);
-        events.add(new EventDay(calendar4, DrawableUtils.getThreeDots(this)));
+        calendar4.add(Calendar.DAY_OF_MONTH, 12);
+        events.add(new EventDay(calendar4, DrawableUtils.getCircleDrawableWithText(this, "")));
+
 
         CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);
-
-        Calendar min = Calendar.getInstance();
-        min.add(Calendar.MONTH, -2);
-
-        Calendar max = Calendar.getInstance();
-        max.add(Calendar.MONTH, 2);
-
-        calendarView.setMinimumDate(min);
-        calendarView.setMaximumDate(max);
-
         calendarView.setEvents(events);
-
-        calendarView.setDisabledDays(getDisabledDays());
-
         calendarView.setOnDayClickListener(eventDay ->
                 Toast.makeText(getApplicationContext(),
                         eventDay.getCalendar().getTime().toString() + " "
@@ -87,22 +72,6 @@ public class CalendarActivity extends AppCompatActivity {
         });
     }
 
-    private List<Calendar> getDisabledDays() {
-        Calendar firstDisabled = DateUtils.getCalendar();
-        firstDisabled.add(Calendar.DAY_OF_MONTH, 2);
-
-        Calendar secondDisabled = DateUtils.getCalendar();
-        secondDisabled.add(Calendar.DAY_OF_MONTH, 1);
-
-        Calendar thirdDisabled = DateUtils.getCalendar();
-        thirdDisabled.add(Calendar.DAY_OF_MONTH, 18);
-
-        List<Calendar> calendars = new ArrayList<>();
-        calendars.add(firstDisabled);
-        calendars.add(secondDisabled);
-        calendars.add(thirdDisabled);
-        return calendars;
-    }
 
     private Calendar getRandomCalendar() {
         Random random = new Random();

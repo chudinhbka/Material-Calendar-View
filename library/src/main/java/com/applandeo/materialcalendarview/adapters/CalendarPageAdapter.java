@@ -121,8 +121,8 @@ public class CalendarPageAdapter extends PagerAdapter {
 
         // Get a number of the first day of the week
         int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-
         // Count when month is beginning
+        calendar.setFirstDayOfWeek(Calendar.SUNDAY);
         int firstDayOfWeek = calendar.getFirstDayOfWeek();
         int monthBeginningCell = (dayOfWeek < firstDayOfWeek ? 7 : 0) + dayOfWeek - firstDayOfWeek;
 

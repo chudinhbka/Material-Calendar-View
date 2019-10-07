@@ -1,6 +1,8 @@
 package com.applandeo.materialcalendarview.utils;
 
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.applandeo.materialcalendarview.R;
@@ -34,6 +36,17 @@ public class DayColorsUtils {
         textView.setBackgroundResource(background);
     }
 
+    public static void setOtherDayColors(TextView textView, int textColor, int typeface, int background) {
+        if (textView == null) {
+            return;
+        }
+
+        textView.setTypeface(null, typeface);
+        textView.setTextColor(textColor);
+        textView.setTextSize(16);
+        textView.setBackgroundResource(background);
+    }
+
     /**
      * This method sets a color of the text, font type and a background of a TextView object.
      * It is used to set day cell (numbers) style in the case of selected day (when calendar is in
@@ -64,13 +77,10 @@ public class DayColorsUtils {
                                                 CalendarProperties calendarProperties) {
         if (today.equals(day)) {
             setTodayColors(dayLabel, calendarProperties);
-        } else if (EventDayUtils.isEventDayWithLabelColor(day, calendarProperties)) {
-            setEventDayColors(day, dayLabel, calendarProperties);
-        } else if (calendarProperties.getHighlightedDays().contains(day)) {
-            setHighlightedDayColors(dayLabel, calendarProperties);
         } else {
-            setNormalDayColors(dayLabel, calendarProperties);
+            setDayColor(day, dayLabel, calendarProperties);
         }
+
     }
 
     private static void setTodayColors(TextView dayLabel, CalendarProperties calendarProperties) {
@@ -85,23 +95,77 @@ public class DayColorsUtils {
         }
     }
 
-    private static void setEventDayColors(Calendar day, TextView dayLabel, CalendarProperties calendarProperties) {
-        EventDayUtils.getEventDayWithLabelColor(day, calendarProperties).executeIfPresent(eventDay ->
-                DayColorsUtils.setDayColors(dayLabel, eventDay.getLabelColor(),
-                        Typeface.NORMAL, R.drawable.background_transparent));
+    private static void setDayColor(Calendar day, TextView dayLabel, CalendarProperties calendarProperties){
+        int dayOfWeek = day.get(Calendar.DAY_OF_WEEK);
+
+        if (Calendar.MONDAY == dayOfWeek) {
+            setEventDayColors(day, dayLabel);
+        } else if (Calendar.TUESDAY == dayOfWeek) {
+            setEventDayColors(day, dayLabel);
+        } else if (Calendar.WEDNESDAY == dayOfWeek) {
+            setEventDayColors(day, dayLabel);
+        } else if (Calendar.THURSDAY == dayOfWeek) {
+            setEventDayColors(day, dayLabel);
+        } else if (Calendar.FRIDAY == dayOfWeek) {
+            setEventDayColors(day, dayLabel);
+        } else if (Calendar.SATURDAY == dayOfWeek) {
+            setSatDayColors(day, dayLabel);
+        } else if (Calendar.SUNDAY == dayOfWeek) {
+            setSunDayColors(day, dayLabel);
+        }
     }
 
-    private static void setHighlightedDayColors(TextView dayLabel, CalendarProperties calendarProperties) {
-        setDayColors(dayLabel, calendarProperties.getHighlightedDaysLabelsColor(),
+    private static void setEventDayColors(Calendar day, TextView dayLabel) {
+        DayColorsUtils.setDayColors(dayLabel, Color.parseColor("#000000"),
                 Typeface.NORMAL, R.drawable.background_transparent);
     }
 
-    private static void setNormalDayColors(TextView dayLabel, CalendarProperties calendarProperties) {
-        setDayColors(dayLabel, calendarProperties.getDaysLabelsColor(), Typeface.NORMAL,
-                R.drawable.background_transparent);
+    private static void setSunDayColors(Calendar day, TextView dayLabel) {
+        DayColorsUtils.setDayColors(dayLabel, Color.parseColor("#C63942"),
+                        Typeface.NORMAL, R.drawable.background_transparent);
+    }
+
+    private static void setSatDayColors(Calendar day, TextView dayLabel) {
+        DayColorsUtils.setDayColors(dayLabel, Color.parseColor("#2165A5"),
+                        Typeface.NORMAL, R.drawable.background_transparent);
+    }
+
+    private static void setSunDayNotMonthColors(Calendar day, TextView dayLabel) {
+        setOtherDayColors(dayLabel, Color.parseColor("#4DC63942"),
+                Typeface.NORMAL, R.drawable.background_transparent);
+    }
+
+    private static void setSatDayNotMonthColors(Calendar day, TextView dayLabel) {
+        setOtherDayColors(dayLabel, Color.parseColor("#4D2165A5"),
+                Typeface.NORMAL, R.drawable.background_transparent);
+    }
+
+    private static void setDayNotMonthColors(Calendar day, TextView dayLabel) {
+        setOtherDayColors(dayLabel, Color.parseColor("#4D000000"),
+                Typeface.NORMAL, R.drawable.background_transparent);
     }
 
     private static void setDayBackgroundColor(TextView dayLabel, int color) {
         dayLabel.getBackground().setColorFilter(color, android.graphics.PorterDuff.Mode.MULTIPLY);
+    }
+
+    public static void setDayNotMonthColor(Calendar day, TextView dayLabel){
+        int dayOfWeek = day.get(Calendar.DAY_OF_WEEK);
+
+        if (Calendar.MONDAY == dayOfWeek) {
+            setDayNotMonthColors(day, dayLabel);
+        } else if (Calendar.TUESDAY == dayOfWeek) {
+            setDayNotMonthColors(day, dayLabel);
+        } else if (Calendar.WEDNESDAY == dayOfWeek) {
+            setDayNotMonthColors(day, dayLabel);
+        } else if (Calendar.THURSDAY == dayOfWeek) {
+            setDayNotMonthColors(day, dayLabel);
+        } else if (Calendar.FRIDAY == dayOfWeek) {
+            setDayNotMonthColors(day, dayLabel);
+        } else if (Calendar.SATURDAY == dayOfWeek) {
+            setSatDayNotMonthColors(day, dayLabel);
+        } else if (Calendar.SUNDAY == dayOfWeek) {
+            setSunDayNotMonthColors(day, dayLabel);
+        }
     }
 }

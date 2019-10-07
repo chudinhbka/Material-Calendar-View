@@ -6,6 +6,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -46,7 +47,7 @@ public final class AppearanceUtils {
             return;
         }
 
-        ConstraintLayout calendarHeader = (ConstraintLayout) view.findViewById(R.id.calendarHeader);
+        LinearLayout calendarHeader = (LinearLayout) view.findViewById(R.id.calendarHeader);
         calendarHeader.setBackgroundColor(color);
     }
 
@@ -82,7 +83,7 @@ public final class AppearanceUtils {
             return;
         }
 
-        ((ImageButton) view.findViewById(R.id.previousButton)).setImageDrawable(drawable);
+        ((ImageView) view.findViewById(R.id.previousButton)).setImageDrawable(drawable);
     }
 
     public static void setForwardButtonImage(View view, Drawable drawable) {
@@ -90,11 +91,11 @@ public final class AppearanceUtils {
             return;
         }
 
-        ((ImageButton) view.findViewById(R.id.forwardButton)).setImageDrawable(drawable);
+        ((ImageView) view.findViewById(R.id.forwardButton)).setImageDrawable(drawable);
     }
 
     public static void setHeaderVisibility(View view, int visibility) {
-        ConstraintLayout calendarHeader = view.findViewById(R.id.calendarHeader);
+        LinearLayout calendarHeader = view.findViewById(R.id.calendarHeader);
         calendarHeader.setVisibility(visibility);
     }
 
